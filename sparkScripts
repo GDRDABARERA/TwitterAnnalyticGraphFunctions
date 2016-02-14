@@ -1,0 +1,113 @@
+First Run
+
+ CREATE TEMPORARY TABLE data USING CarbonAnalytics OPTIONS (tableName "BUBBLE", schema "name STRING, color STRING , degree INT ", primarykey "name");
+ CREATE TEMPORARY TABLE NT USING CarbonAnalytics OPTIONS (tableName "WSO2CONNODE" , schema "name STRING, degree INT , color STRING ", primarykey "name"); 
+ CREATE TEMPORARY TABLE ET USING CarbonAnalytics OPTIONS (tableName "WSO2CONEDGE" , schema "source STRING, value INT , target STRING ", primarykeys "source , target");                             
+ CREATE TEMPORARY TABLE D1 USING CarbonAnalytics OPTIONS (tableName "TEMPNODE" , schema "name STRING, degree INT , color STRING ", primarykey "name");                           
+                            
+Party
+
+ CREATE TEMPORARY TABLE tweetBigData USING CarbonAnalytics OPTIONS (tableName "WSO2CONPROCESSED");                       
+select from_user, sum(retweets) as sumRetweets from   (select from_user, parent_text,  max(retweet_count) as retweets from tweetBigData where ( htag like "%iot%" ) AND (from_user != "Null")  group by from_user, parent_text, party ) a   group by from_user order by sumRetweets desc;                     
+CREATE TEMPORARY TABLE NT1 USING CarbonAnalytics OPTIONS (tableName "TEMPNODE");
+INSERT OVERWRITE TABLE NT1   select from_user, sum(retweets) as sumRetweets ,"#C644FC" from   (select from_user, parent_text,  max(retweet_count) as retweets  from tweetBigData where ( htag like "%iot%" ) AND (from_user != "Null")  group by from_user, parent_text ) a   group by from_user order by sumRetweets desc;                     
+ select from_user, sum(retweets) as sumRetweets from   (select from_user, parent_text,  max(retweet_count) as retweets from tweetBigData where ( htag like "%bigbigdata%" ) AND (from_user != "Null")  group by from_user, parent_text, party ) a   group by from_user order by sumRetweets desc;                     
+INSERT INTO TABLE NT1   select from_user, sum(retweets) as sumRetweets ,"#FF2D55" from   (select from_user, parent_text,  max(retweet_count) as retweets  from tweetBigData where ( htag like "%bigbigdata%" ) AND (from_user != "Null")  group by from_user, parent_text ) a   group by from_user order by sumRetweets desc;                     
+select from_user, sum(retweets) as sumRetweets from   (select from_user, parent_text,  max(retweet_count) as retweets from tweetBigData where ( htag like "%onthecloud%" ) AND (from_user != "Null")  group by from_user, parent_text, party ) a   group by from_user order by sumRetweets desc;                     
+INSERT INTO TABLE NT1   select from_user, sum(retweets) as sumRetweets ,"#34AADC" from   (select from_user, parent_text,  max(retweet_count) as retweets  from tweetBigData where ( htag like "%onthecloud%" ) AND (from_user != "Null")  group by from_user, parent_text ) a   group by from_user order by sumRetweets desc;                     
+ select from_user, sum(retweets) as sumRetweets from   (select from_user, parent_text,  max(retweet_count) as retweets from tweetBigData where ( htag like "%api%" ) AND (from_user != "Null")  group by from_user, parent_text, party ) a   group by from_user order by sumRetweets desc;                     
+ INSERT INTO TABLE NT1   select from_user, sum(retweets) as sumRetweets ,"#4CD964" from   (select from_user, parent_text,  max(retweet_count) as retweets  from tweetBigData where ( htag like "%api%" ) AND (from_user != "Null")  group by from_user, parent_text ) a   group by from_user order by sumRetweets desc;                     
+select from_user, sum(retweets) as sumRetweets from   (select from_user, parent_text,  max(retweet_count) as retweets from tweetBigData where ( htag like "%goodgovernance%" ) AND (from_user != "Null")  group by from_user, parent_text, party ) a   group by from_user order by sumRetweets desc;                     
+INSERT INTO TABLE NT1   select from_user, sum(retweets) as sumRetweets ,"#6F3706" from   (select from_user, parent_text,  max(retweet_count) as retweets  from tweetBigData where ( htag like "%goodgovernance%" ) AND (from_user != "Null")  group by from_user, parent_text ) a   group by from_user order by sumRetweets desc;                     
+select from_user, sum(retweets) as sumRetweets from   (select from_user, parent_text,  max(retweet_count) as retweets from tweetBigData where ( htag like "%soa%" ) AND (from_user != "Null")  group by from_user, parent_text, party ) a   group by from_user order by sumRetweets desc;                     
+INSERT INTO TABLE NT1   select from_user, sum(retweets) as sumRetweets ,"#F4A460" from   (select from_user, parent_text,  max(retweet_count) as retweets  from tweetBigData where ( htag like "%soa%" ) AND (from_user != "Null")  group by from_user, parent_text ) a   group by from_user order by sumRetweets desc;                     
+select from_user, sum(retweets) as sumRetweets from   (select from_user, parent_text,  max(retweet_count) as retweets from tweetBigData where ( htag like "%realappshavdevs%" ) AND (from_user != "Null")  group by from_user, parent_text, party ) a   group by from_user order by sumRetweets desc;                     
+INSERT INTO TABLE NT1   select from_user, sum(retweets) as sumRetweets ,"#007AFF" from   (select from_user, parent_text,  max(retweet_count) as retweets  from tweetBigData where ( htag like "%realappshavdevs%" ) AND (from_user != "Null")  group by from_user, parent_text ) a   group by from_user order by sumRetweets desc;                     
+ select from_user, sum(retweets) as sumRetweets from   (select from_user, parent_text,  max(retweet_count) as retweets from tweetBigData where ( htag like "%worlddomination%" ) AND (from_user != "Null")  group by from_user, parent_text, party ) a   group by from_user order by sumRetweets desc;                     
+INSERT INTO TABLE NT1   select from_user, sum(retweets) as sumRetweets ,"#4A4A4A" from   (select from_user, parent_text,  max(retweet_count) as retweets  from tweetBigData where ( htag like "%worlddomination%" ) AND (from_user != "Null")  group by from_user, parent_text ) a   group by from_user order by sumRetweets desc;                     
+select from_user, sum(retweets) as sumRetweets from   (select from_user, parent_text,  max(retweet_count) as retweets from tweetBigData where ( htag like "%vega%" ) AND (from_user != "Null")  group by from_user, parent_text, party ) a   group by from_user order by sumRetweets desc;                     
+INSERT INTO TABLE NT1   select from_user, sum(retweets) as sumRetweets ,"#FFCD02" from   (select from_user, parent_text,  max(retweet_count) as retweets  from tweetBigData where ( htag like "%vega%" ) AND (from_user != "Null")  group by from_user, parent_text ) a   group by from_user order by sumRetweets desc;                     
+select from_user, sum(retweets) as sumRetweets from   (select from_user, parent_text,  max(retweet_count) as retweets from tweetBigData where (htag not like "%iot%" and htag not like "%bigbigdata%" and htag not like "%onthecloud%" and htag not like "%goodgovernance%" and htag not like "%soa%" and htag not like "%realappshavdevs%" and htag not like "%worlddomination%" and htag not like "%vega%") AND (from_user != "Null")  group by from_user, parent_text, party ) a   group by from_user order by sumRetweets desc;                     
+INSERT INTO TABLE NT1   select from_user, sum(retweets) as sumRetweets ,"#FF9500" from   (select from_user, parent_text,  max(retweet_count) as retweets  from tweetBigData where (htag not like "%iot%" and htag not like "%bigbigdata%" and htag not like "%onthecloud%" and htag not like "%goodgovernance%" and htag not like "%soa%" and htag not like "%realappshavdevs%" and htag not like "%worlddomination%" and htag not like "%vega%") AND (from_user != "Null")  group by from_user, parent_text ) a   group by from_user order by sumRetweets desc;                     
+                           
+                            
+CommunityGraph Data
+
+ CREATE TEMPORARY TABLE tweetBigData USING CarbonAnalytics OPTIONS (tableName "WSO2CONPROCESSED");  
+CREATE TEMPORARY TABLE tempNode USING CarbonAnalytics OPTIONS (tableName "TEMPNODE");  
+select b.name,b.degree,b.color from (select name, degree, color from tempNode)b  INNER JOIN (select name, max(degree) as degree from tempNode group by name)a ON b.name=a.name AND b.degree=a.degree;       
+CREATE TEMPORARY TABLE NT USING CarbonAnalytics OPTIONS (tableName "WSO2CONNODE"); 
+INSERT OVERWRITE TABLE NT  select b.name,b.degree,b.color from (select name, degree, color from tempNode)b  INNER JOIN (select name, max(degree) as degree from tempNode group by name)a ON b.name=a.name AND b.degree=a.degree;       
+CREATE TEMPORARY TABLE ET USING CarbonAnalytics OPTIONS (tableName "WSO2CONEDGE"); 
+select f.from_user, max(f.retweet_count) as retweets , f.retweeter from (select from_user, retweet_count , retweeter from tweetBigData  where ( htag like "%wso2con%" OR htag LIKE "%wso2%" OR htag LIKE "%wso2conasia%") AND (from_user != "Null")  ) f  INNER JOIN NT1 on f.from_user=NT1.name OR f.retweeter=NT1.name group by retweeter, from_user order by retweets desc;                          
+INSERT OVERWRITE table ET select f.from_user, max(f.retweet_count) as retweets , f.retweeter from (select from_user, retweet_count , retweeter from tweetBigData  where (htag like "%wso2con%" OR htag LIKE "%wso2%" OR htag LIKE "%wso2conasia%") AND (from_user != "Null")  ) f  INNER JOIN NT1 on f.from_user=NT1.name OR f.retweeter=NT1.name group by retweeter, from_user order by retweets desc;                          
+INSERT INTO TABLE NT select target , "1" , "#C644FC"    from ET  group by target;                                                                                
+                            
+                            
+                            
+Bubble Graph Data
+
+CREATE TEMPORARY TABLE data USING CarbonAnalytics OPTIONS (tableName "WSO2CONPROCESSED");
+CREATE TEMPORARY TABLE s USING CarbonAnalytics OPTIONS (tableName "BUBBLE");                            
+                            
+ INSERT OVERWRITE TABLE s select "#IOT" as name ,"#C644FC" as color, count(*) from data as degree where (htag like "%iot%"); 
+ INSERT INTO TABLE s select "#API" as name ,"#4CD964" as color, count(*) from data as degree where (htag like "%api%"); 
+ INSERT INTO TABLE s select "#OnTheCloud" as name ,"#34AADC" as color, count(*) from data as degree where (htag like "%onthecloud%"); 
+ INSERT INTO TABLE s select "#BigBigData" as name, "#FF2D55" as color, count(*) from data as degree where (htag like "%bigbigdata%"); 
+ INSERT INTO TABLE s select "#GoodGovernance" as name, "#6F3706" as color, count(*) from data as degree where (htag like "%goodgovernance%"); 
+ INSERT INTO TABLE s select "#SOA" as name, "#F4A460" as color, count(*) from data as degree where (htag like "%soa%"); 
+ INSERT INTO TABLE s select "#RealAppsHavDevs" as name, "#007AFF" as color, count(*) from data as degree where (htag like "%realapphavdev%"); 
+INSERT INTO TABLE s select "#WorldDomination" as name, "#4A4A4A" as color, count(*) from data as degree where (htag like "%worlddomination%"); 
+ INSERT INTO TABLE s select "#Vega" as name, "#FFCD02" as color, count(*) from data as degree where (htag like "%vega%"); 
+ INSERT INTO TABLE s select "#WSO2Con" as name, "#FF9500" as color, count(*) from data as degree  where (htag not like "%iot%" and htag not like "%bigbigdata%" and htag not like "%onthecloud%" and htag not like "%goodgovernance%" and htag not like "%soa%" and htag not like "%realappshavdevs%" and htag not like "%worlddomination%" and htag not like "%vega%");
+   
+   
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
