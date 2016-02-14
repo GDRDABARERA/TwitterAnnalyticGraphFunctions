@@ -1,0 +1,43 @@
+CommondCloud Data
+
+/* Enter a unique ExecutionPlan */
+@Plan:name('ExecutionPlanCommonCloud')
+
+/* Enter a unique description for ExecutionPlan */
+-- @Plan:description('ExecutionPlan')
+
+/* define streams/tables and write queries here ... */
+
+
+@Import('wso2con:1.0.0')
+define stream wso2con (from_user string, text string, user_followers_count int, user_friends_count int, retweet_count int, retweeted string, id_str string, hit_count int, retweeter string, parent_text string, timeStamp string, htag string, name string, location string, profile_image string, description string);
+
+
+@Export('processWso2ConCloud:1.0.0')
+define stream processWso2ConCloud (id_str string, processText string, htag string , from_user string, retweeter string);
+
+from wso2con
+select id_str , TweetReader:getAll(text) as processText, htag, from_user, retweeter
+insert into processWso2ConCloud;
+
+
+Processs Stream with common htags
+
+/* Enter a unique ExecutionPlan */
+@Plan:name('ExecutionPlanP1')
+
+/* Enter a unique description for ExecutionPlan */
+-- @Plan:description('ExecutionPlan')
+
+/* define streams/tables and write queries here ... */
+
+@Import('wso2con:1.0.0')
+define stream wso2con (from_user string, text string, user_followers_count int, user_friends_count int, retweet_count int, retweeted string, id_str string, hit_count int, retweeter string, parent_text string, timeStamp string, htag string, name string, location string, profile_image string, description string);
+
+
+@Export('wso2conProcessed:1.0.0')
+define stream wso2conP (from_user string, text string, user_followers_count int, user_friends_count int, retweet_count int, retweeted string, id_str string, hit_count int, retweeter string, parent_text string, timeStamp string, htag string, name string, location string, profile_image string, description string ,party string);
+
+from wso2con#TweetReader:getEmpParty(from_user)
+select from_user , TweetReader:getAll(text) as text , user_followers_count, user_friends_count, retweet_count , retweeted, id_str , hit_count, retweeter , parent_text, timeStamp , str:lower(htag) as htag, name , location , profile_image, description, TopName as party 
+insert into wso2conP;
