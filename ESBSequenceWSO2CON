@@ -1,0 +1,38 @@
+<!--This  xml file shows the ESB configuration to get all htags mentioned in the xml JSONObject of a tweet to a one xml path
+called JASONObject/entities/HashTags/Text -->
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="wso2conSequence" onError="wso2conErrorSequence" xmlns="http://ws.apache.org/ns/synapse">
+    <property name="OUT_ONLY" scope="default" type="BOOLEAN" value="true"/>
+    <property name="messageType" scope="axis2" type="STRING" value="application/xml"/>
+    <log level="custom">
+        <property name="test" value="--------------------con Test----------------------"/>
+    </log>
+    <property name="CommonHTag" value=""/>
+    <foreach expression="//entities/hashtags" id="foreach_1" xmlns:ns="http://org.apache.synapse/xsd">
+        <sequence>
+            <property
+                expression="fn:concat(get-property('CommonHTag'), //text, ' , ')" name="CommonHTag"/>
+        </sequence>
+    </foreach>
+    <property name="failureResultProperty" scope="default">
+        <combinedResult xmlns="">failure</combinedResult>
+    </property>
+    <script language="js"><![CDATA[var testPayload=mc.getPayloadXML();    
+    var testProperty =  mc.getProperty("CommonHTag");    
+    testPayload.combinedValues=mc.getProperty("CommonHTag"); 
+    mc.setPayloadXML(testPayload);]]></script>
+    <clone sequential="false">
+        <target>
+            <endpoint>
+                <http method="POST" uri-template="http://localhost:9766/endpoints/wso2conReciever/wso2con"/>
+            </endpoint>
+        </target>
+        <target>
+            <endpoint>
+                <http method="POST" uri-template="http://localhost:9763/endpoints/bigData/data"/>
+            </endpoint>
+        </target>
+    </clone>
+</sequence>
